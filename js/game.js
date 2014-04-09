@@ -16,13 +16,19 @@ var setupGame = function() {
 var createTeamHTML = function(team, won) {
     var name = team.name;
     var wonLabel = "label-default";
-    if (won) {
-        wonLabel = "label-success";
+    var tooltipText = team.member1 + " and " + team.member2
+    if (won !== undefined) {
+        if (won) {
+            wonLabel = "label-success";
+            tooltipText = tooltipText + " won";
+        } else {
+            tooltipText = tooltipText + " lost";
+        }
     }
-    return "<div class='label " + wonLabel + "'> " + name + " </div>";
+    return "<div class='team label " + wonLabel + "' data-toggle='tooltip' data-placement='right' title='" + tooltipText + "'> " + name + " </div>";
 }
 
-var putTeamsInTable = function() {
+var putTeamsInHierarchy = function() {
     var currentTeamGame = [];
     for (var i=0; i < Teams.length; i++) {
         currentTeamGame.push(0);
@@ -32,15 +38,50 @@ var putTeamsInTable = function() {
             if (lines[gm][i] <= Teams.length && lines[gm][i] > 0) {
                 var teamIndex = lines[gm][i] - 1;
                 var currentTeam = Teams[ teamIndex ];
-                var won = false;
+                var won = undefined;
                 if (currentTeamGame[ teamIndex ] < currentTeam.scores.length) {
                     if (currentTeam.scores[ currentTeamGame[ teamIndex ] ] == 1) {
                         won = true;
+                    } else {
+                        won = false;
                     }
                     currentTeamGame[ teamIndex ] ++;
                 }
                 putHTMLInTable(gm, i, createTeamHTML( currentTeam, won ));
             }
         }
+    }
+
+    $('.team').tooltip();
+}
+
+var putTeamsInTable = function() {
+    for (var i=0; i < Teams.length; ++i) {
+        var gamesWon = 0;
+        var gamesLost = 0;
+        for (var j=0; j < Teams[i].scores.length; ++j) {
+            if (Teams[i].scores[j] == 1) {
+                gamesWon += 1;
+            } else {
+                gamesLost += 1;
+            }
+        }
+        var nextGame = "Not yet set"
+        if (NextGames[i] > 0) {
+            // NextGames is indexed from 1
+            nextGame = Teams[ NextGames[i] - 1 ].name;
+        }
+
+        var teamRow = "<tr>";
+        teamRow += "<td>" + Teams[i].name + "</td>";
+        teamRow += "<td>" + Teams[i].member1 + " " + Teams[i].email1 + "</td>";
+        teamRow += "<td>" + Teams[i].member2 + " " + Teams[i].email2 + "</td>";
+        teamRow += "<td>" + gamesWon + "</td>";
+        teamRow += "<td>" + gamesLost + "</td>";
+        teamRow += "<td>" + nextGame + "</td>";
+        teamRow += "</tr>";
+
+        var tableBody = $(".teams-table").find("tbody");
+        tableBody.append(teamRow);
     }
 }

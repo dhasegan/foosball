@@ -37,11 +37,11 @@ var Teams = [{
     "member2": "Corneliu Prodescu",
     "email2": "c.prodescu@jacobs-university.de",
     "name": 'DROP TABLE "on foot";',
-    "scores": []
+    "scores": [0,1,1,0,0,1,0]
 },{
     "member1": "Nikolche Kolev",
     "email1": "n.kolev@jacobs-university.de",
-    "member1": "Mengistie,Andinet",
+    "member2": "Mengistie,Andinet",
     "email2": "gurgibahir@yahoo.com",
     "scores": []
 },{
@@ -90,6 +90,8 @@ var Teams = [{
 // random.shuffle(A)
 // A
 var randPerm = [3, 6, 4, 10, 0, 11, 1, 7, 8, 12, 2, 5, 9];
+
+var NextGames = [2,1,4,3,6,5,0,9,8,0,12,11,0];
 
 // Game State
 var lines = [

@@ -1,20 +1,20 @@
 var teamsIndices = []
 
 var drawGame = function(column, startRow, stopRow) {
-    $('.table').find('tr:nth-child(' + startRow + ')').find('td:nth-child(' + column + ')').css("border-top", "1px solid #000000")
-    $('.table').find('tr:nth-child(' + stopRow + ')').find('td:nth-child(' + column + ')').css("border-bottom", "1px solid #000000")
+    $('.hierarchy-table').find('tr:nth-child(' + startRow + ')').find('td:nth-child(' + column + ')').css("border-top", "1px solid #000000")
+    $('.hierarchy-table').find('tr:nth-child(' + stopRow + ')').find('td:nth-child(' + column + ')').css("border-bottom", "1px solid #000000")
     for (var i=startRow; i<=stopRow; ++i) {
-        $('.table').find('tr:nth-child(' + i + ')').find('td:nth-child(' + column + ')').css("border-right", "1px solid #000000")
+        $('.hierarchy-table').find('tr:nth-child(' + i + ')').find('td:nth-child(' + column + ')').css("border-right", "1px solid #000000")
     }
 }
 var drawLine = function(column, row) {
-    $('.table').find('tr:nth-child(' + row + ')').find('td:nth-child(' + column + ')').css("border-top", "1px solid #000000")
+    $('.hierarchy-table').find('tr:nth-child(' + row + ')').find('td:nth-child(' + column + ')').css("border-top", "1px solid #000000")
 }
 
 var initializeTable = function() {
     var rows = 85;
     var cols = 8;
-    var $table = $(".table");
+    var $table = $(".hierarchy-table");
     for (var i=0; i< rows; i++) {
         var str = "<tr> "
         for (var j=0;j < cols; j++) {
@@ -109,6 +109,5 @@ var initializeTable = function() {
 
 // game_nr and item_nr indexed from 0
 var putHTMLInTable = function(game_nr, item_nr, html) {
-    console.log(teamsIndices)
-    $('.table').find('tr:nth-child(' + (teamsIndices[game_nr][item_nr]) + ')').find('td:nth-child(' + (game_nr+1) + ')').html(html);
+    $('.hierarchy-table').find('tr:nth-child(' + (teamsIndices[game_nr][item_nr]) + ')').find('td:nth-child(' + (game_nr+1) + ')').html(html);
 }
