@@ -11,6 +11,11 @@ var drawLine = function(column, row) {
     $('.hierarchy-table').find('tr:nth-child(' + row + ')').find('td:nth-child(' + column + ')').css("border-top", "1px solid #000000")
 }
 
+// game_nr and item_nr indexed from 0
+var putHTMLInTable = function(game_nr, item_nr, html) {
+    $('.hierarchy-table').find('tr:nth-child(' + (teamsIndices[game_nr][item_nr]) + ')').find('td:nth-child(' + (game_nr+1) + ')').html(html);
+}
+
 var initializeTable = function() {
     var rows = 85;
     var cols = 8;
@@ -105,9 +110,10 @@ var initializeTable = function() {
     // Winner
     drawLine(8,39);
     teamsIndices[7].push( 38 );
+
+    putHelpInTable();
 }
 
-// game_nr and item_nr indexed from 0
-var putHTMLInTable = function(game_nr, item_nr, html) {
-    $('.hierarchy-table').find('tr:nth-child(' + (teamsIndices[game_nr][item_nr]) + ')').find('td:nth-child(' + (game_nr+1) + ')').html(html);
+var putHelpInTable = function() {
+    $('.hierarchy-table').find('tr:nth-child(' + (55 - 4) + ')').find('td:nth-child(' + 1 + ')').text("Loser's bracket:");
 }
