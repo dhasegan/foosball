@@ -23,7 +23,7 @@ var initializeTable = function() {
     for (var i=0; i< rows; i++) {
         var str = "<tr> "
         for (var j=0;j < cols; j++) {
-            str = str + "<td> </td>"
+            str = str + "<td class='hier-item'> </td>"
         }
         str = str + " </tr>"
         $table.append(str)

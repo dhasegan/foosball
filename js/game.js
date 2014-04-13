@@ -73,12 +73,12 @@ var putTeamsInTable = function() {
         }
 
         var teamRow = "<tr>";
-        teamRow += "<td>" + Teams[i].name + "</td>";
-        teamRow += "<td>" + Teams[i].member1 + " " + Teams[i].email1 + "</td>";
-        teamRow += "<td>" + Teams[i].member2 + " " + Teams[i].email2 + "</td>";
-        teamRow += "<td>" + gamesWon + "</td>";
-        teamRow += "<td>" + gamesLost + "</td>";
-        teamRow += "<td>" + nextGame + "</td>";
+        teamRow += "<td class='hier-item'>" + Teams[i].name + "</td>";
+        teamRow += "<td class='hier-item'>" + Teams[i].member1 + " " + Teams[i].email1 + "</td>";
+        teamRow += "<td class='hier-item'>" + Teams[i].member2 + " " + Teams[i].email2 + "</td>";
+        teamRow += "<td class='hier-item'>" + gamesWon + "</td>";
+        teamRow += "<td class='hier-item'>" + gamesLost + "</td>";
+        teamRow += "<td class='hier-item'>" + nextGame + "</td>";
         teamRow += "</tr>";
 
         var tableBody = $(".teams-table").find("tbody");
