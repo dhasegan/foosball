@@ -18,11 +18,18 @@ var createTeamHTML = function(team, won) {
     var wonLabel = "label-default";
     var tooltipText = team.member1 + " and " + team.member2
     if (won !== undefined) {
-        if (won) {
+        if (won == 1) {
             wonLabel = "label-success";
             tooltipText = tooltipText + " won";
-        } else {
+        } else if (won == 0) {
+            wonLabel = "label-warning";
             tooltipText = tooltipText + " lost";
+        } else if (won == 2) {
+            wonLabel = "label-info";
+            tooltipText = tooltipText + " won";
+        } else if (won == -1) {
+            wonLabel = "label-danger";
+            tooltipText = tooltipText + " disqualified";
         }
     }
     return "<div class='team label " + wonLabel + "' data-toggle='tooltip' data-placement='right' title='" + tooltipText + "'> " + name + " </div>";
@@ -40,11 +47,7 @@ var putTeamsInHierarchy = function() {
                 var currentTeam = Teams[ teamIndex ];
                 var won = undefined;
                 if (currentTeamGame[ teamIndex ] < currentTeam.scores.length) {
-                    if (currentTeam.scores[ currentTeamGame[ teamIndex ] ] == 1) {
-                        won = true;
-                    } else {
-                        won = false;
-                    }
+                    won = currentTeam.scores[ currentTeamGame[ teamIndex ] ];
                     currentTeamGame[ teamIndex ] ++;
                 }
                 putHTMLInTable(gm, i, createTeamHTML( currentTeam, won ));
@@ -62,7 +65,7 @@ var putTeamsInTable = function() {
         for (var j=0; j < Teams[i].scores.length; ++j) {
             if (Teams[i].scores[j] == 1) {
                 gamesWon += 1;
-            } else {
+            } else if (Teams[i].scores[j] == 0) {
                 gamesLost += 1;
             }
         }
