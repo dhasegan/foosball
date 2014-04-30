@@ -58,6 +58,18 @@ var putTeamsInHierarchy = function() {
     $('.team').tooltip();
 }
 
+var shouldAddTeamInTable = function(team) {
+    var gamesLost = 0;
+    for (var j=0; j < team.scores.length; ++j) {
+        if (team.scores[j] == 0) {
+            gamesLost += 1;
+        } else if (team.scores[j] == -1) {
+            return false;
+        }
+    }
+    return (gamesLost < 2);
+}
+
 var putTeamsInTable = function() {
     for (var i=0; i < Teams.length; ++i) {
         var gamesWon = 0;
@@ -85,6 +97,8 @@ var putTeamsInTable = function() {
         teamRow += "</tr>";
 
         var tableBody = $(".teams-table").find("tbody");
-        tableBody.append(teamRow);
+        if (shouldAddTeamInTable(Teams[i])) {
+            tableBody.append(teamRow);
+        }
     }
 }
