@@ -81,13 +81,17 @@ var putTeamsInTable = function() {
                 gamesLost += 1;
             }
         }
-        var nextGame = "Not yet set"
+        var nextGame = ""
         if (NextGames[i] > 0) {
             // NextGames is indexed from 1
             nextGame = Teams[ NextGames[i] - 1 ].name;
         }
-
-        var teamRow = "<tr>";
+        teamRow = ""
+        if (shouldAddTeamInTable(Teams[i])) {
+            teamRow += "<tr class='success'>";
+        } else {
+            teamRow += "<tr>"
+        }
         teamRow += "<td class='hier-item'>" + Teams[i].name + "</td>";
         teamRow += "<td class='hier-item'>" + Teams[i].member1 + " " + Teams[i].email1 + "</td>";
         teamRow += "<td class='hier-item'>" + Teams[i].member2 + " " + Teams[i].email2 + "</td>";
@@ -97,8 +101,6 @@ var putTeamsInTable = function() {
         teamRow += "</tr>";
 
         var tableBody = $(".teams-table").find("tbody");
-        if (shouldAddTeamInTable(Teams[i])) {
-            tableBody.append(teamRow);
-        }
+        tableBody.append(teamRow);
     }
 }
