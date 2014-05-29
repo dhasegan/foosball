@@ -71,30 +71,61 @@ var shouldAddTeamInTable = function(team) {
 }
 
 var putTeamsInTable = function() {
+    var order = [];
     for (var i=0; i < Teams.length; ++i) {
+        order.push(i);
+    }
+    order.sort(function(a,b) {
+        var gamesWonA = 0;
+        var gamesLostA = 0;
+        for (var j=0; j < Teams[a].scores.length; ++j) {
+            if (Teams[a].scores[j] == 1) {
+                gamesWonA += 1;
+            } else if (Teams[a].scores[j] == 0) {
+                gamesLostA += 1;
+            }
+        }
+        var gamesWonB = 0;
+        var gamesLostB = 0;
+        for (var j=0; j < Teams[b].scores.length; ++j) {
+            if (Teams[b].scores[j] == 1) {
+                gamesWonB += 1;
+            } else if (Teams[b].scores[j] == 0) {
+                gamesLostB += 1;
+            }
+        }
+        if (gamesWonA == gamesWonB) {
+            return (gamesLostA - gamesLostB);
+        }
+        return - (gamesWonA - gamesWonB);
+    });
+    console.log(order);
+
+    for (var i=0; i < Teams.length; ++i) {
+        var idx = order[i];
         var gamesWon = 0;
         var gamesLost = 0;
-        for (var j=0; j < Teams[i].scores.length; ++j) {
-            if (Teams[i].scores[j] == 1) {
+        for (var j=0; j < Teams[idx].scores.length; ++j) {
+            if (Teams[idx].scores[j] == 1) {
                 gamesWon += 1;
-            } else if (Teams[i].scores[j] == 0) {
+            } else if (Teams[idx].scores[j] == 0) {
                 gamesLost += 1;
             }
         }
         var nextGame = ""
-        if (NextGames[i] > 0) {
+        if (NextGames[idx] > 0) {
             // NextGames is indexed from 1
-            nextGame = Teams[ NextGames[i] - 1 ].name;
+            nextGame = Teams[ NextGames[idx] - 1 ].name;
         }
         teamRow = ""
-        if (shouldAddTeamInTable(Teams[i])) {
+        if (shouldAddTeamInTable(Teams[idx])) {
             teamRow += "<tr class='success'>";
         } else {
             teamRow += "<tr>"
         }
-        teamRow += "<td class='hier-item'>" + Teams[i].name + "</td>";
-        teamRow += "<td class='hier-item'>" + Teams[i].member1 + " " + Teams[i].email1 + "</td>";
-        teamRow += "<td class='hier-item'>" + Teams[i].member2 + " " + Teams[i].email2 + "</td>";
+        teamRow += "<td class='hier-item'>" + Teams[idx].name + "</td>";
+        teamRow += "<td class='hier-item'>" + Teams[idx].member1 + " " + Teams[idx].email1 + "</td>";
+        teamRow += "<td class='hier-item'>" + Teams[idx].member2 + " " + Teams[idx].email2 + "</td>";
         teamRow += "<td class='hier-item'>" + gamesWon + "</td>";
         teamRow += "<td class='hier-item'>" + gamesLost + "</td>";
         teamRow += "<td class='hier-item'>" + nextGame + "</td>";
