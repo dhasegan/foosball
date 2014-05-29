@@ -13,7 +13,8 @@ var drawLine = function(column, row) {
 
 // game_nr and item_nr indexed from 0
 var putHTMLInTable = function(game_nr, item_nr, html) {
-    $('.hierarchy-table').find('tr:nth-child(' + (teamsIndices[game_nr][item_nr]) + ')').find('td:nth-child(' + (game_nr+1) + ')').html(html);
+    $('.hierarchy-table').find('tr:nth-child(' + (teamsIndices[game_nr][item_nr]) + ')').find('td:nth-child(' + (game_nr+1) + ')').html(html)
+        .css("padding-top", "1px").css("padding-bottom", "1px");
 }
 
 var initializeTable = function() {
